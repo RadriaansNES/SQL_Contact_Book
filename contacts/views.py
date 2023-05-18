@@ -39,8 +39,10 @@ class Window(QMainWindow):
         # add buttons
         self.addButton = QPushButton("Add...")
         self.addButton.clicked.connect(self.openAddDialog) # adding add dialog
-        self.deleteButton = QPushButton("Delete")
+        self.deleteButton = QPushButton("Delete") 
+        self.deleteButton.clicked.connect(self.deleteContact) # add delete dialog i.e. connect clicked signal to delete contact slot
         self.clearAllButton = QPushButton("Clear All")
+        self.clearAllButton.clicked.connect(self.clearContacts) # delete all button connectiont
         # add vertical display w buttons
         layout = QVBoxLayout()
         layout.addWidget(self.addButton)
@@ -56,6 +58,34 @@ class Window(QMainWindow):
         if dialog.exec() == QDialog.Accepted: # check for acceptance, upon pass, calls add contact 
             self.contactsModel.addContact(dialog.data)
             self.table.resizeColumnsToContents()
+
+    # method to delete
+    def deleteContact(self):
+        row = self.table.currentIndex().row() #get current index of row, if 0, void, otherwise continue
+        if row < 0:
+            return
+
+        messageBox = QMessageBox.warning( # simple warning 
+            self,
+            "Warning!",
+            "Do you want to remove the selected contact?",
+            QMessageBox.Ok | QMessageBox.Cancel,
+        )
+
+        if messageBox == QMessageBox.Ok:
+            self.contactsModel.deleteContact(row) # delete
+
+    # method to del all
+    def clearContacts(self):
+        messageBox = QMessageBox.warning(
+            self,
+            "Warning!",
+            "Do you want to remove all your contacts?",
+            QMessageBox.Ok | QMessageBox.Cancel,
+        )
+
+        if messageBox == QMessageBox.Ok:
+            self.contactsModel.clearContacts()
 
 ## create contact dialog
 class AddDialog(QDialog):

@@ -26,3 +26,17 @@ class ContactsModel:
             self.model.setData(self.model.index(rows, column + 1), field)
         self.model.submitAll() # submits changes, then reloads
         self.model.select()
+
+    # model to delete contacts from db
+    def deleteContact(self, row):
+        self.model.removeRow(row) # same principal as above
+        self.model.submitAll()
+        self.model.select()
+
+    # model to del all
+    def clearContacts(self):
+        self.model.setEditStrategy(QSqlTableModel.OnManualSubmit) # use manual submit to cache all rows enabling us to modify all fields 
+        self.model.removeRows(0, self.model.rowCount()) # above
+        self.model.submitAll()
+        self.model.setEditStrategy(QSqlTableModel.OnFieldChange) # caveat to revert to original values
+        self.model.select()
