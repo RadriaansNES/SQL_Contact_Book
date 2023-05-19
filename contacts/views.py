@@ -20,7 +20,7 @@ class Window(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Contacts")
-        self.resize(550, 250)
+        self.resize(1500, 1000)
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
         self.layout = QHBoxLayout()
