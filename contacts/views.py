@@ -39,6 +39,7 @@ class Window(QMainWindow):
         self.table.setColumnWidth(1, 300)
         self.table.setColumnWidth(2, 300)
         self.table.horizontalHeader().setStretchLastSection(True)
+        self.table.verticalHeader().setVisible(False)
         # add buttons
         self.addButton = QPushButton("Add...")
         self.addButton.clicked.connect(self.openAddDialog) # adding add dialog
