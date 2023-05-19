@@ -35,7 +35,10 @@ class Window(QMainWindow):
         self.table = QTableView()
         self.table.setModel(self.contactsModel.model) # connect model with table view
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table.resizeColumnsToContents()
+        self.table.setColumnWidth(0, 50)
+        self.table.setColumnWidth(1, 300)
+        self.table.setColumnWidth(2, 300)
+        self.table.setColumnWidth(3, 700)
         # add buttons
         self.addButton = QPushButton("Add...")
         self.addButton.clicked.connect(self.openAddDialog) # adding add dialog
